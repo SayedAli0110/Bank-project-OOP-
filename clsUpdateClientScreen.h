@@ -60,10 +60,15 @@ public:
 		cout << setw(40) << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET<< endl;
 		_ReadClient(client);
 
-		client.Save();
-
-		cout << setw(50) << "press any button to continue...." << endl;
-		_getch();
+		switch (client.Save())
+		{
+		case clsBankClient::enSaveResults::svFailedEmptyobject:
+			cout << setw(35) << "" << clsUtil::RED << "Update Failed Because the empty object." << clsUtil::RESET << endl;
+			break;
+		case clsBankClient::enSaveResults::svSucced:
+			cout << setw(35) << "" << clsUtil::GREEN << "Client Updated successfully" << clsUtil::RESET << endl;
+			break;
+		}
 
 	}
 

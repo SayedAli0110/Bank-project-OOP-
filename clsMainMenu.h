@@ -12,6 +12,7 @@
 #include "clsAddNewClientScreen.h"
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
+#include "clsFindClientMenu.h"
 
 using namespace std;
 
@@ -53,7 +54,8 @@ private:
 	}
 	static void _DisplayFindClientScreen()
 	{
-		cout << "Find Client Screen will be here soon" << endl;
+		system("cls");
+		clsFindClientMenu::ShowFindClientMenu();
 	}
 	static void _DisplayTransactionsMenuScreen()
 	{
@@ -77,7 +79,7 @@ private:
 	}
 	static void _GoBackToMainMenu()
 	{
-		cout << "\nPress any key to go back to Main Menu...";
+		cout << "\n" << setw(35) << "" << "Press any key to go back to Main Menu...";
 		_getch();
 
 		ShowMainMenu();
