@@ -17,16 +17,16 @@ class clsDeleteClientScreen : protected clsMenu
 private:
 	static void _PrintClient(clsBankClient client)
 	{
-		cout << setw(35) << "" << "        CLIENT CARD" << endl;
-		cout << setw(35) << "" << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET << endl;
-		cout << setw(35) << "" << "FIRST NAME: " << client.FirstName << endl;
-		cout << setw(35) << "" << "LAST NAME : " << client.LastName << endl;
-		cout << setw(35) << "" << "FULL NAME : " << client.FullName() << endl;
-		cout << setw(35) << "" << "EMAIL     : " << client.Email << endl;
-		cout << setw(35) << "" << "PHONE     : " << client.Phone << endl;
-		cout << setw(35) << "" << "PIN CODE  : " << client.PinCode << endl;
-		cout << setw(35) << "" << "Balance   : " << client.Balance << endl;
-		cout << setw(35) << "" << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET;
+		cout << "        CLIENT CARD" << endl;
+		cout << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET << endl;
+		cout << "FIRST NAME: " << client.FirstName << endl;
+		cout << "LAST NAME : " << client.LastName << endl;
+		cout << "FULL NAME : " << client.FullName() << endl;
+		cout << "EMAIL     : " << client.Email << endl;
+		cout << "PHONE     : " << client.Phone << endl;
+		cout << "PIN CODE  : " << client.PinCode << endl;
+		cout << "Balance   : " << client.Balance << endl;
+		cout << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET;
 	}
 
 public:
@@ -34,13 +34,13 @@ public:
 	{
 		_ShowMenuHeader("DELETE CLIENT SCREEN");
 		string AccountNumber = "";
-		cout << setw(35) << "" << "Enter Account Number : ";
+		cout << "Enter Account Number : ";
 		AccountNumber = clsInputValidation::ReadString();
 
 		while (!clsBankClient::IsExistClient(AccountNumber))
 		{
-			cout << endl << setw(35) << "" << clsUtil::RED << "Client with this account number is not exist." << endl;
-			cout << clsUtil::RESET << setw(35) << "";
+			cout << endl << clsUtil::RED << "Client with this account number is not exist." << endl;
+			cout << clsUtil::RESET;
 			cout << "Enter another one : ";
 			AccountNumber = clsInputValidation::ReadString();
 		}
@@ -49,7 +49,7 @@ public:
 
 		_PrintClient(Client);
 
-		cout << endl << setw(35) << "" << clsUtil::RED << "Are you sure u want to delete this client(Y/N) : ";
+		cout << endl << clsUtil::RED << "Are you sure u want to delete this client(Y/N) : ";
 		cout << clsUtil::RESET;
 		char Answer = 'y';
 		cin >> Answer;
@@ -59,13 +59,13 @@ public:
 		{
 			if (Client.Delete())
 			{
-				cout << endl << setw(40) << "" << clsUtil::GREEN << "Client Deleted Successfully" << endl;
+				cout << clsUtil::GREEN << "Client Deleted Successfully" << endl;
 				cout << clsUtil::RESET;
 			}
 			else
 			{
 
-				cout << endl << setw(40) << "" << clsUtil::RED << "There is a prblem with deleting this client." << endl;
+				cout << endl << clsUtil::RED << "There is a prblem with deleting this client." << endl;
 				cout << clsUtil::RESET;
 			}
 		}

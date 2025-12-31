@@ -13,60 +13,60 @@ class clsUpdateClientScreen : protected clsMenu
 protected:
 	static void _ReadClient(clsBankClient& client)
 	{
-		cout << setw(35) << "" << "FIRST NAME: ";
+		cout  << "FIRST NAME: ";
 		client.FirstName = clsInputValidation::ReadString();
-		cout << setw(35) << "" << "LAST NAME : ";
+		cout  << "LAST NAME : ";
 		client.LastName = clsInputValidation::ReadString();
-		cout << setw(35) << "" << "EMAIL     : ";
+		cout  << "EMAIL     : ";
 		client.Email = clsInputValidation::ReadString();
-		cout << setw(35) << "" << "PHONE     : ";
+		cout  << "PHONE     : ";
 		client.Phone = clsInputValidation::ReadString();
-		cout << setw(35) << "" << "PIN CODE  : ";
+		cout  << "PIN CODE  : ";
 		client.PinCode = clsInputValidation::ReadString();
-		cout << setw(35) << "" << "Balance   : ";
+		cout  << "Balance   : ";
 		client.Balance = clsInputValidation::ReadFloatNumber();
 	}
 
 	static void _PrintClient(clsBankClient client)
 	{
-		cout << setw(35) << "" << "        CLIENT CARD" << endl;
-		cout << setw(35) << "" << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET << endl;
-		cout << setw(35) << "" << "FIRST NAME: " << client.FirstName << endl;
-		cout << setw(35) << "" << "LAST NAME : " << client.LastName << endl;
-		cout << setw(35) << "" << "FULL NAME : " << client.FullName() << endl;
-		cout << setw(35) << "" << "EMAIL     : " << client.Email << endl;
-		cout << setw(35) << "" << "PHONE     : " << client.Phone << endl;
-		cout << setw(35) << "" << "PIN CODE  : " << client.PinCode << endl;
-		cout << setw(35) << "" << "Balance   : " << client.Balance << endl;
-		cout << setw(35) << "" << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET;
+		cout << "        CLIENT CARD" << endl;
+		cout << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET << endl;
+		cout << "FIRST NAME: " << client.FirstName << endl;
+		cout << "LAST NAME : " << client.LastName << endl;
+		cout << "FULL NAME : " << client.FullName() << endl;
+		cout << "EMAIL     : " << client.Email << endl;
+		cout << "PHONE     : " << client.Phone << endl;
+		cout << "PIN CODE  : " << client.PinCode << endl;
+		cout << "Balance   : " << client.Balance << endl;
+		cout << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET;
 	}
 
 public:
 	static void ShowUpdateClientScreen()
 	{
 		_ShowMenuHeader("UPDATE CLIENT SCREEN");
-		cout << setw(35) << "" << "Enter Account Number : ";
+		cout << "Enter Account Number : ";
 		string AccNumber = clsInputValidation::ReadString();
 		while (!clsBankClient::IsExistClient(AccNumber))// validating client existence
 		{
-			cout << setw(35) << "" << clsUtil::RED << "Client not found." << clsUtil::RESET << endl;
-			cout << setw(35) << "" << "Enter Account Number: ";
+			cout << clsUtil::RED << "Client not found." << clsUtil::RESET << endl;
+			cout << "Enter Account Number: ";
 			AccNumber = clsInputValidation::ReadString();
 		}
 		clsBankClient client = clsBankClient::FindClient(AccNumber);
 		_PrintClient(client);
 		cout << endl;
-		cout << setw(55) << "Update client " << endl;
-		cout << setw(40) << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET<< endl;
+		cout << "Update client " << endl;
+		cout << clsUtil::YELLOW << "----------------------------" << clsUtil::RESET<< endl;
 		_ReadClient(client);
 
 		switch (client.Save())
 		{
 		case clsBankClient::enSaveResults::svFailedEmptyobject:
-			cout << setw(35) << "" << clsUtil::RED << "Update Failed Because the empty object." << clsUtil::RESET << endl;
+			cout << clsUtil::RED << "Update Failed Because the empty object." << clsUtil::RESET << endl;
 			break;
 		case clsBankClient::enSaveResults::svSucced:
-			cout << setw(35) << "" << clsUtil::GREEN << "Client Updated successfully" << clsUtil::RESET << endl;
+			cout << clsUtil::GREEN << "Client Updated successfully" << clsUtil::RESET << endl;
 			break;
 		}
 

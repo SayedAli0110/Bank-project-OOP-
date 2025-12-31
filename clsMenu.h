@@ -21,22 +21,22 @@ public:
 		cout << endl;
 		// yellow-ish separator
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		cout << setw(35) << "" << string(40, '-') << endl;
+		cout << setw(35) << "" << string(40, '=') << endl;
 
 		// title in default color (or change attributes if you prefer)
 		SetConsoleTextAttribute(hConsole, defaultAttrs);
-		cout << setw(37) << "\t" << Title << endl;
+		cout << setw(46) << "" << Title << endl;
 
 		if (subTitle != "")
 		{
 			// subtitle in yellow-ish
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			cout << setw(37)<< "\t" << subTitle << endl;
+			cout << setw(46)<< "" << subTitle << endl;
 		}
 
 		// closing separator
 		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		cout << setw(35) << "" << string(40, '-') << endl;
+		cout << setw(35) << "" << string(40, '=') << endl;
 		SetConsoleTextAttribute(hConsole, defaultAttrs);
 		cout << "\n";
 	}

@@ -57,6 +57,15 @@
     <ClInclude Include="clsFindClientMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="clsTransactionsMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clsDepositeScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clsWithdrawScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">

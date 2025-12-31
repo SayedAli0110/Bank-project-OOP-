@@ -13,6 +13,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientMenu.h"
+#include "clsTransactionsMenu.h"
 
 using namespace std;
 
@@ -59,7 +60,7 @@ private:
 	}
 	static void _DisplayTransactionsMenuScreen()
 	{
-		cout << "Transactions Menu Screen will be here soon" << endl;
+		clsTransactionsMenu::ShowTransactionsMenu();
 	}
 	static void _DisplayShowBalanceSheetScreen()
 	{
@@ -79,7 +80,7 @@ private:
 	}
 	static void _GoBackToMainMenu()
 	{
-		cout << "\n" << setw(35) << "" << "Press any key to go back to Main Menu...";
+		cout << "\n" << "Press any key to go back to Main Menu...";
 		_getch();
 
 		ShowMainMenu();

@@ -288,6 +288,16 @@ public:
 		return _IsEmpty(*this);
 	}
 
+	void Deposit(float Amount)
+	{
+		_Balance += Amount;
+	}
+
+	void Withdraw(float Amount)
+	{
+		_Balance -= Amount;
+	}
+
 	enum enSaveResults
 	{
 		svFailedEmptyobject = 0,
