@@ -69,17 +69,14 @@ public:
 			return;
 		}
 
-
-		client.Deposit(Amount);
-
-		switch (client.Save())
+		if (client.Deposit(Amount))
 		{
-			case clsBankClient::enSaveResults::svFailedEmptyobject:
-				cout << clsUtil::RED << "Error: Empty client, cannot save." << clsUtil::RESET << endl;
-				break;
-			case clsBankClient::enSaveResults::svFailedExistObject:
-				cout << clsUtil::GREEN << "Amount deposited successfully." << clsUtil::RESET << endl;
-				break;
+			cout << clsUtil::GREEN << "Amount deposited successfully." << clsUtil::RESET << endl;
+			cout << "New balance is : " << client.Balance << endl;
+		}
+		else
+		{
+			cout << clsUtil::RED << "Error in deposit operation(the amount can't be negative)." << clsUtil::RESET << endl;
 		}
 
 		cout << endl << "Press any key to go back to transaction menu.....";

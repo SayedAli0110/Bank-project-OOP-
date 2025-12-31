@@ -56,24 +56,22 @@ public:
 
 		float Amount = clsInputValidation::ReadFloatNumber();
 
-		while (Amount > client.Balance || Amount <= 0 || ((int)Amount % 5) != 0)
+		while (((int)Amount % 5) != 0)
 		{
 			cout << endl << clsUtil::RED << "You've entered a denied amount of money" << clsUtil::RESET << endl;
 			cout << "Enter an amount to withdraw (multiplyes of 5): ";
 			Amount = clsInputValidation::ReadFloatNumber();
 		}
 
-		client.Withdraw(Amount);
-		
-
-		switch (client.Save())
+		if (client.Withdraw(Amount))
 		{
-		case clsBankClient::enSaveResults::svFailedEmptyobject:
-			cout << endl << clsUtil::RED << "Transaction Failed Because and empty client" << clsUtil::RESET << endl;
-			break;
-		case clsBankClient::enSaveResults::svSucced:
-			cout << endl << clsUtil::GREEN << "Transaction done successfully" << clsUtil::RESET << endl;
-			break;
+			cout << endl << clsUtil::GREEN << "Amount withdrawn successfully." << clsUtil::RESET << endl;
+			cout << "New balance is: " << client.Balance << endl;
+		}
+		else
+		{
+			cout << endl << clsUtil::RED << "Failed to withdraw the amount." << clsUtil::RESET << endl;
+			cout << "Insufficient balance." << endl;
 		}
 
 		cout << endl <<"Press any key to go back to transaction menu.....";

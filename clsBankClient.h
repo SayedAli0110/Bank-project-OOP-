@@ -288,14 +288,34 @@ public:
 		return _IsEmpty(*this);
 	}
 
-	void Deposit(float Amount)
+	bool Deposit(float Amount)
 	{
-		_Balance += Amount;
+		
+		if(Amount <= 0)
+		{
+			return false;
+		}
+		else
+		{
+			_Balance += Amount;
+			Save();
+		}
+		return true;
 	}
 
-	void Withdraw(float Amount)
+	bool Withdraw(float Amount)
 	{
-		_Balance -= Amount;
+		if (Amount > _Balance || Amount <= 0)
+		{
+			return false;
+
+		}
+		else
+		{
+			_Balance -= Amount;
+			Save();
+		}
+			return true;
 	}
 
 	enum enSaveResults
