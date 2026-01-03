@@ -14,6 +14,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientMenu.h"
 #include "clsTransactionsMenu.h"
+#include "clsUsersMenuScreen.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ private:
 		system("cls");
 		clsClientListMenu::ShowClientListMenu();
 	}
+
 	static void _DisplayAddNewClientScreen()
 	{
 		system("cls");
@@ -48,36 +50,34 @@ private:
 		system("cls");
 		clsDeleteClientScreen::ShowDeleteClientScreen();
 	}
+
 	static void _DisplayUpdateClientScreen()
 	{
 		system("cls");
 		clsUpdateClientScreen::ShowUpdateClientScreen();
 	}
+
 	static void _DisplayFindClientScreen()
 	{
 		system("cls");
 		clsFindClientMenu::ShowFindClientMenu();
 	}
+
 	static void _DisplayTransactionsMenuScreen()
 	{
 		clsTransactionsMenu::ShowTransactionsMenu();
 	}
-	static void _DisplayShowBalanceSheetScreen()
-	{
-		cout << "Show Balance Sheet Screen will be here soon" << endl;
-	}
-	static void _DisplayExitScreen()
-	{
-		cout << "Exit Screen will be here soon" << endl;
-	}
+
 	static void _DisplayUsersMenuScreen()
 	{
-		cout << "Users Menu Screen will be here soon" << endl;
+		clsUsersMenuScreen::ShowUsersMenuScreen();
 	}
+
 	static void _DisplaylogOutScreen()
 	{
 		cout << "Log Out Screen will be here soon" << endl;
 	}
+
 	static void _GoBackToMainMenu()
 	{
 		cout << "\n" << "Press any key to go back to Main Menu...";
@@ -85,6 +85,8 @@ private:
 
 		ShowMainMenu();
 	}
+
+
 	static void _PerformMainMenu(enMainMenuOptions options)
 	{
 		switch (options)	
@@ -114,7 +116,7 @@ private:
 			_GoBackToMainMenu();
 			break;
 		case clsMainMenu::eShowBalanceSheet:
-			_DisplayShowBalanceSheetScreen();
+			_DisplayUsersMenuScreen();
 			_GoBackToMainMenu();
 			break;
 		case clsMainMenu::eLogOut:
@@ -125,21 +127,14 @@ private:
 			break;
 		}
 	}
+	
 	static void _PrintHeader()
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=') << clsUtil::RESET << endl;
 
-		SetConsoleCursorPosition(hConsole, { 35,5 });
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); // yellow-ish
-		cout << string(40, '-') << clsUtil::RESET << "\n";
+		cout << setw(50) << "" << "Main Menu" << endl;
 
-		SetConsoleCursorPosition(hConsole, { 40,6 });
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // default color
-		cout << "\tMAIN MENU\n";
-
-		SetConsoleCursorPosition(hConsole, { 35,7 });
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); // yellow-ish
-		cout << string(40, '-') << clsUtil::RESET << "\n";
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=') << clsUtil::RESET << endl;
 	}
 
 public:
@@ -147,6 +142,7 @@ public:
 	static void ShowMainMenu()
 	{
 		system("cls");
+		cout << clsUtil::RemoveCursor;
 
 		_ShowMenuHeader("MAIN MENU SCREEN");
 		vector<string> MainMenuOptions = {
@@ -156,16 +152,16 @@ public:
 			"4- Update Client",
 			"5- Find Client",
 			"6- Transactions Menu",
-			"7- Show Balance Sheet",
+			"7- Manage Users Menu",
 			"8- Log Out"
 		};
 		_PrintHeader();
 		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,8));
 	}
+
 };
 
-
-static short _PerformMenuOptions(vector<string> options , short StartLine = 0)
+	static short _PerformMenuOptions(vector<string> options , short StartLine = 0)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     short selected = 0;
@@ -229,4 +225,3 @@ static short _PerformMenuOptions(vector<string> options , short StartLine = 0)
         }
     }
 }
-

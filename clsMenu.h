@@ -79,9 +79,7 @@ public:
 			}
 
 			// print separator using Win32 attributes (avoid ANSI here)
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			cout << setw(35) << "" << string(40, '-') << endl;
-			SetConsoleTextAttribute(hConsole, defaultAttrs);
+			cout << setw(35) << "" << clsUtil::YELLOW << string(40, '-') << clsUtil::RESET << endl;
 
 			// handle input
 			char ch = _getch();

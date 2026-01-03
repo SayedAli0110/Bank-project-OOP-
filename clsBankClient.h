@@ -139,6 +139,7 @@ private:
 
 		_SaveClientsToFile(vClients);
 	}
+
 	void _AddNew()
 	{
 		_AddClientToFile(_ConvertClientObjecIntoLine(*this));

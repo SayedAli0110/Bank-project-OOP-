@@ -214,6 +214,8 @@ public:
 	static const string MAGENTA;
 	static const string CYAN;
 	static const string RESET;
+	static const string RemoveCursor;
+	static const string ShowCursor;
 
 	static string NumberToText(int Number)
 	{
@@ -291,3 +293,6 @@ const string clsUtil::BLUE = "\033[34m";
 const string clsUtil::MAGENTA = "\033[35m";
 const string clsUtil::CYAN = "\033[36m";
 const string clsUtil::RESET = "\033[0m";
+const string clsUtil::RemoveCursor = "\033[?25l";
+const string clsUtil::ShowCursor = "\033[?25h";
+

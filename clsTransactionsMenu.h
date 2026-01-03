@@ -97,12 +97,24 @@ private:
 		}
 	}
 
+	static void _PrintSubHeader(string title)
+	{
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '-') << clsUtil::RESET << endl;
+
+		cout << setw(45) << "" << title << endl;
+
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '-') << clsUtil::RESET << endl;
+
+	}
+
+
 public:
 	static void ShowTransactionsMenu()
 	{
 		system("cls");
 
 		_ShowMenuHeader("TRANSACTIONS MENU SCREEN");
+		_PrintSubHeader("Transactions Menu");
 		vector<string> TransOptions = {
 			"1- Deposit",
 			"2- Withdraw",
@@ -111,6 +123,6 @@ public:
 		};
 
 		// Use same option selection method / start line as main menu
-		_PerformTransactionsMenu((enTransactionsOptions)_PerformMenuOptions(TransOptions, 4));
+		_PerformTransactionsMenu((enTransactionsOptions)_PerformMenuOptions(TransOptions, 8));
 	}
 };
