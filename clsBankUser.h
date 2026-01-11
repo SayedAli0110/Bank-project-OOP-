@@ -22,7 +22,7 @@ private:
 	enMode _Mode;
 	string _Username;
 	string _Password;
-	int permissions;
+	short _Permissions;
 
 	bool MarkToDelete = false;
 
@@ -125,13 +125,13 @@ private:
 public:
 
 	// constructor
-	clsBankUser(enMode mode, string FirstName, string LastName, string Email, string Phone, string Username, string Password, int Permissions)
+	clsBankUser(enMode mode, string FirstName, string LastName, string Email, string Phone, string Username, string Password, short Permissions)
 		: clsPerson(FirstName, LastName, Email, Phone)
 	{
 		_Mode = mode;
 		_Username = Username;
 		_Password = Password;
-		permissions = Permissions;
+		_Permissions = Permissions;
 	}
 
 	// setters and getters
@@ -157,17 +157,30 @@ public:
 	__declspec(property(get = GetPassword, put = SetPassword))string Password;
 
 
-	void SetPermissions(int Permissions)
+	void SetPermissions(short Permissions)
 	{
-		permissions = Permissions;
+		_Permissions = Permissions;
 	}
-	int GetPermissions()
+	short GetPermissions()
 	{
-		return permissions;
+		return _Permissions;
 	}
-	__declspec(property(get = GetPermissions, put = SetPermissions))int Permissions;
+	__declspec(property(get = GetPermissions, put = SetPermissions))short Permissions;
 
 	// other class methods
+
+	enum enPermissions {
+		eAdmin = -1,
+		enonPermissions = 0,
+		eShowClenttsList = 1,
+		eAddNewClient = 2,
+		eDeleteClient = 4,
+		eUpdateClient = 8,
+		eFindClient = 16,
+		eTransactions = 32,
+		eManageUsers = 64
+		
+	};
 
 	static clsBankUser FindUser(string Username)
 	{
