@@ -32,6 +32,12 @@ private:
 public:
 	static void ShowDeleteClientScreen()
 	{
+
+		if (!CheckAccessRights(clsBankUser::enPermissions::eDeleteClient))
+		{
+			return;
+		}
+
 		_ShowMenuHeader("DELETE CLIENT SCREEN");
 		string AccountNumber = "";
 		cout << "Enter Account Number : ";

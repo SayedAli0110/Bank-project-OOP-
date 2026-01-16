@@ -44,6 +44,12 @@ protected:
 public:
 	static void ShowUpdateClientScreen()
 	{
+
+		if (!CheckAccessRights(clsBankUser::enPermissions::eUpdateClient))
+		{
+			return;
+		}
+
 		_ShowMenuHeader("UPDATE CLIENT SCREEN");
 		cout << "Enter Account Number : ";
 		string AccNumber = clsInputValidation::ReadString();

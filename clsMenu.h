@@ -8,6 +8,8 @@
 #include "clsUtil.h"
 #include <conio.h>
 #include <iomanip>
+#include "clsBankUser.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -40,6 +42,24 @@ public:
 		SetConsoleTextAttribute(hConsole, defaultAttrs);
 		cout << "\n";
 	}
+
+	static bool CheckAccessRights(clsBankUser::enPermissions Permission)
+	{
+		if (CurrentUser.CheckUserPermission(Permission))
+		{
+			return true;
+		}
+		else
+		{
+			cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=') << endl;
+			cout << setw(40) << "" << clsUtil::RED << "Access denied, contact your manager" << endl;
+			cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=')  << clsUtil::RESET << endl;
+
+			return false;
+		}
+
+	}
+
 	static short _PerformMenuOptions(vector<string> options, short StartLine = 0)
 	{
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

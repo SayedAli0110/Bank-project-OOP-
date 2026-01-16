@@ -135,6 +135,7 @@
     <ClInclude Include="clsFindClientMenu.h" />
     <ClInclude Include="clsFindUserScreen.h" />
     <ClInclude Include="clsInputValidation.h" />
+    <ClInclude Include="clsLoginScreen.h" />
     <ClInclude Include="clsMainMenu.h" />
     <ClInclude Include="clsMenu.h" />
     <ClInclude Include="clsPeriod.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="clsUsersMenuScreen.h" />
     <ClInclude Include="clsUtil.h" />
     <ClInclude Include="clsWithdrawScreen.h" />
+    <ClInclude Include="Global.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />

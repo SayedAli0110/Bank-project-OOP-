@@ -113,6 +113,11 @@ public:
 	{
 		system("cls");
 
+		if (!CheckAccessRights(clsBankUser::enPermissions::eTransactions))
+		{
+			return;
+		}
+
 		_ShowMenuHeader("TRANSACTIONS MENU SCREEN");
 		_PrintSubHeader("Transactions Menu");
 		vector<string> TransOptions = {

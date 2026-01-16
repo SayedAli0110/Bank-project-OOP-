@@ -84,6 +84,11 @@ private:
 public:
 	static void ShowAddNewClientScreen()
 	{
+		if (!CheckAccessRights(clsBankUser::enPermissions::eAddNewClient))
+		{
+			return;
+		}
+
 		_ShowMenuHeader("ADD NEW CLIENT SCREEN");
 		_AddNewClient();
 	}

@@ -28,6 +28,12 @@ protected:
 public:
 	static void ShowFindClientMenu()
 	{
+
+		if (!CheckAccessRights(clsBankUser::enPermissions::eFindClient))
+		{
+			return;
+		}
+
 		_ShowMenuHeader("FIND CLIENT MENU", "SEARCH BY ACCOUNT NUMBER");
 		cout << "Enter Account Number : ";
 		string AccNumber = clsInputValidation::ReadString();

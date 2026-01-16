@@ -24,6 +24,12 @@ private:
 public:
 	static void ShowClientListMenu()
 	{
+
+		if (!CheckAccessRights(clsBankUser::enPermissions::eShowClenttsList))
+		{
+			return;
+		}
+
 		vector<clsBankClient> vClients = clsBankClient::GetClientsList();
 		string subTitle = "Clients (" + to_string(vClients.size()) + ") Client/s";
 		_ShowMenuHeader("CLIENTS LIST SCREEN", subTitle);

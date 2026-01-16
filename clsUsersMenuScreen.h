@@ -80,9 +80,15 @@ private:
 public:
 	static void ShowUsersMenuScreen()
 	{
+		system("cls");
+
+		if (!CheckAccessRights(clsBankUser::enPermissions::eManageUsers))
+		{
+			return;
+		}
+
 		vector<string> options = { "1- Show Users List", "2- Find User", "3- Add New User", "4- Delete User", "5- Update User Info", "6- Main Menu" };
 
-		system("cls");
 
 		_ShowMenuHeader("Users Menu Screen");
 		_PrintSubHeader("Users Menu");

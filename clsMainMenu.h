@@ -4,17 +4,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "clsMenu.h"
+#include <Windows.h>
 #include <iomanip>
+#include "clsMenu.h"
 #include "clsUtil.h"
 #include "clsClientListMenu.h"
-#include <Windows.h>
 #include "clsAddNewClientScreen.h"
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientMenu.h"
 #include "clsTransactionsMenu.h"
 #include "clsUsersMenuScreen.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -42,24 +43,28 @@ private:
 	static void _DisplayAddNewClientScreen()
 	{
 		system("cls");
+		clsUtil::ShowCursor;
 		clsAddNewClientScreen::ShowAddNewClientScreen();
 	}
 
 	static void _DisplayDeleteClientScreen()
 	{
 		system("cls");
+		clsUtil::ShowCursor;
 		clsDeleteClientScreen::ShowDeleteClientScreen();
 	}
 
 	static void _DisplayUpdateClientScreen()
 	{
 		system("cls");
+		clsUtil::ShowCursor;
 		clsUpdateClientScreen::ShowUpdateClientScreen();
 	}
 
 	static void _DisplayFindClientScreen()
 	{
 		system("cls");
+		clsUtil::ShowCursor;
 		clsFindClientMenu::ShowFindClientMenu();
 	}
 
@@ -75,7 +80,7 @@ private:
 
 	static void _DisplaylogOutScreen()
 	{
-		cout << "Log Out Screen will be here soon" << endl;
+		CurrentUser = clsBankUser::GetEmptyUser();
 	}
 
 	static void _GoBackToMainMenu()
@@ -121,7 +126,7 @@ private:
 			break;
 		case clsMainMenu::eLogOut:
 			_DisplaylogOutScreen();
-			_GoBackToMainMenu();
+
 			break;
 		default:
 			break;

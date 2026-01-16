@@ -257,6 +257,16 @@ public:
 		_Mode = enMode::UpdateMode;
 	}
 
+	bool CheckUserPermission(clsBankUser::enPermissions Permission)
+	{
+		if ((Permission & this->_Permissions) == Permission)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
 	enSaveResults Save()
 	{
 		if (_Mode == enMode::EmptyMode)
