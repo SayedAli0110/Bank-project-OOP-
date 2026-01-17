@@ -93,7 +93,7 @@ public:
 		_ShowMenuHeader("Users Menu Screen");
 		_PrintSubHeader("Users Menu");
 
-		short selectedOption = _PerformMenuOptions(options, 8 );
+		short selectedOption = _PerformMenuOptions(options, 10 );
 
 		switch (selectedOption)
 		{

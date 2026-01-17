@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <Windows.h>
 #include "clsUtil.h"
 #include <conio.h>
 #include <iomanip>
@@ -15,32 +14,32 @@ using namespace std;
 
 class clsMenu
 {
+private:
+	static void _PrintCurrentUser()
+	{
+		cout << setw(36) << "" << clsUtil::YELLOW << "User : " << clsUtil::RESET << CurrentUser.Username << endl;
+	}
+	static void _PrintLoginDate()
+	{
+		cout << setw(36) << "" << clsUtil::YELLOW << "Date : " << clsUtil::RESET;
+		LoginDate.Print();
+	}
+
 public:
 	static void _ShowMenuHeader(string Title, string subTitle = "")
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		WORD defaultAttrs = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		cout << endl;
-		// yellow-ish separator
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		cout << setw(35) << "" << string(40, '=') << endl;
-
-		// title in default color (or change attributes if you prefer)
-		SetConsoleTextAttribute(hConsole, defaultAttrs);
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=') << clsUtil::RESET << endl;
 		cout << setw(46) << "" << Title << endl;
 
 		if (subTitle != "")
 		{
-			// subtitle in yellow-ish
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			cout << setw(46)<< "" << subTitle << endl;
+			cout << setw(40)<< "" << clsUtil::YELLOW << subTitle << clsUtil::RESET << endl;
 		}
 
-		// closing separator
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-		cout << setw(35) << "" << string(40, '=') << endl;
-		SetConsoleTextAttribute(hConsole, defaultAttrs);
-		cout << "\n";
+		cout << setw(35) << "" << clsUtil::YELLOW << string(40, '=') << clsUtil::RESET << endl;
+
+		_PrintCurrentUser();
+		_PrintLoginDate();
 	}
 
 	static bool CheckAccessRights(clsBankUser::enPermissions Permission)
@@ -62,43 +61,35 @@ public:
 
 	static short _PerformMenuOptions(vector<string> options, short StartLine = 0)
 	{
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		WORD defaultAttrs = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		if (GetConsoleScreenBufferInfo(hConsole, &csbi))
-			defaultAttrs = csbi.wAttributes;
-
+	
 		short selected = 0;
 		short pos = StartLine;
-		COORD coord = { 40 , pos };
 		while (true)
 		{
 			// ensure any pending output is written before moving the cursor
 			cout.flush();
 
 			// position cursor to start (column 40, row 0) then redraw options
-			SetConsoleCursorPosition(hConsole, { 40,0 });
+			clsUtil::MoveCursorTo(40, 1);
 			pos = StartLine;
 
 			// highlight selected option
 			for (int i = 0; i < (int)options.size(); i++)
 			{
-				coord = { 44, pos };
-				SetConsoleCursorPosition(hConsole, coord);
+				clsUtil::MoveCursorTo(40, pos);
 				if (i == selected)
 				{
-					SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+					cout << clsUtil::RED;
 					cout << options[i] << "\n";
 				}
 				else
 				{
-					SetConsoleTextAttribute(hConsole, defaultAttrs);
+					cout << clsUtil::RESET;
 					cout << options[i] << "\n";
 				}
 				pos++;
 			}
 
-			// print separator using Win32 attributes (avoid ANSI here)
 			cout << setw(35) << "" << clsUtil::YELLOW << string(40, '-') << clsUtil::RESET << endl;
 
 			// handle input
@@ -120,8 +111,7 @@ public:
 			}
 			else if (ch == 13) // enter key 
 			{
-				// restore default attribute before returning
-				SetConsoleTextAttribute(hConsole, defaultAttrs);
+				cout << clsUtil::RESET;
 				return selected;
 			}
 		}

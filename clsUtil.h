@@ -216,6 +216,11 @@ public:
 	static const string RESET;
 	static const string RemoveCursor;
 	static const string ShowCursor;
+	static void MoveCursorTo(int x, int y)
+	{
+		cout << "\x1b[" << y << ";" << x << "H";
+	}
+
 
 	static string NumberToText(int Number)
 	{

@@ -61,7 +61,6 @@ public:
 	void SetDay(short Day) {
 		_Day = Day;
 	}
-
 	short GetDay() {
 		return _Day;
 	}
@@ -70,7 +69,6 @@ public:
 	void SetMonth(short Month) {
 		_Month = Month;
 	}
-
 	short GetMonth() {
 		return _Month;
 	}
@@ -80,7 +78,6 @@ public:
 	void SetYear(short Year) {
 		_Year = Year;
 	}
-
 	short GetYear() {
 		return _Year;
 	}

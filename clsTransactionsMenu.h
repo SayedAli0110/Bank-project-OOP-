@@ -128,6 +128,6 @@ public:
 		};
 
 		// Use same option selection method / start line as main menu
-		_PerformTransactionsMenu((enTransactionsOptions)_PerformMenuOptions(TransOptions, 8));
+		_PerformTransactionsMenu((enTransactionsOptions)_PerformMenuOptions(TransOptions, 10));
 	}
 };

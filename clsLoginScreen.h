@@ -13,34 +13,54 @@ using namespace std;
 
 class clsLoginScreen : clsMenu
 {
+private:
+	static void _LockLoginprogress()
+	{
+		system("cls");
+		clsMenu::_ShowMenuHeader("LOGIN FAILD", "\b\b\bif you have any issue contact the IT");
+		_getch();
+		exit(0);
+	}
+
 public:
 	static void ShowLoginScreen()
 	{
-	
-		system("cls");
 
-		_ShowMenuHeader("LOGIN SCREEN");
+		short trials = 3;
+		
+		string subtitle = "";
 
-		cout << "Enter Username : ";
-		string Username = clsInputValidation::ReadString();
-
-		cout << "Enter Password : ";
-		string Password = clsInputValidation::ReadString();
-
-		CurrentUser = clsBankUser::FindUser(Username, Password);
-
-		if (clsBankUser::IsExistUser(CurrentUser.Username))
+		do
 		{
-			cout << "\n\nWelcome Back " << CurrentUser.FullName() << ".....";
-			_getch();
-			clsMainMenu::ShowMainMenu();
-		}
-		else
-		{
-			cout << clsUtil::RED << "\n\nInvalid Username or Password!" << clsUtil::RESET << endl;
-			cout << "Try Again...";
-			_getch();
-		}
+			system("cls");
+			_ShowMenuHeader("LOGIN SCREEN", subtitle);
+			cout << "Enter Username : ";
+			string Username = clsInputValidation::ReadString();
+
+			cout << "Enter Password : ";
+			string Password = clsInputValidation::ReadString();
+
+			CurrentUser = clsBankUser::FindUser(Username, Password);
+
+			if (clsBankUser::IsExistUser(CurrentUser.Username))
+			{
+				cout << "\n\nWelcome Back " << CurrentUser.FullName() << ".....";
+				_getch();
+				clsMainMenu::ShowMainMenu();
+			}
+			else
+			{
+				trials--;
+
+				string ErorMesage = "incorrect Username/passowrd\n\t\t\t\t\tyou have " + to_string(trials);
+				ErorMesage += " times remaining";
+
+				subtitle = ErorMesage;
+			}
+
+		} while (trials > 0);
+
+		_LockLoginprogress();
 	}
 };
 

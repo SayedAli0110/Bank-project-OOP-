@@ -161,7 +161,7 @@ public:
 			"8- Log Out"
 		};
 		_PrintHeader();
-		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,8));
+		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,10));
 	}
 
 };
