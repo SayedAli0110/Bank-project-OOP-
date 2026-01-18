@@ -6,10 +6,14 @@
 #include <fstream>
 #include "clsPerson.h"
 #include "clsInputValidation.h"
+#include "clsDate.h"
+#include "clsTime.h"
 
 using namespace std;
 
-string FileName = "Users.txt";
+const string FileName = "Users.txt";
+const string RegisterFileName = "LoginRegister.txt";
+
 
 class clsBankUser : public clsPerson
 {
@@ -20,9 +24,10 @@ private:
 		ADDMode = 2
 	};
 	enMode _Mode;
-	string _Username;
-	string _Password;
-	short _Permissions;
+
+	 string _Username;
+	 string _Password;
+	 short _Permissions;
 
 	bool MarkToDelete = false;
 
@@ -101,6 +106,41 @@ private:
 		fUsers.close();
 	}
 
+	string _MakeLoginRegisterRecord()
+	{
+		string Record = "";
+
+		Record += clsDate().DateToString() + "#//#";
+		Record += clsTime().TimeToString() + "#//#";
+		Record += _Username + "#//#";
+		Record += _Password + "#//#";
+		Record += to_string(_Permissions);
+
+		return Record;
+	}
+
+	static vector<string> _ConvertRecordIntoRegisterInfo(string Record)
+	{
+		clsString Value(Record);
+
+		vector<string> vOutPut = Value.Split("#//#");
+
+		return vOutPut;
+	}
+
+	static void _SaveRegisterRecordToFile(string RegisterRecord)
+	{
+		fstream Registers;
+		Registers.open(RegisterFileName, ios::app | ios::out);
+
+		if (Registers.is_open())
+		{
+			Registers << RegisterRecord << endl;
+		}
+
+		Registers.close();
+	}
+
 
 	void _update()
 	{
@@ -123,7 +163,6 @@ private:
 	}
 
 public:
-
 	// constructor
 	clsBankUser(enMode mode, string FirstName, string LastName, string Email, string Phone, string Username, string Password, short Permissions)
 		: clsPerson(FirstName, LastName, Email, Phone)
@@ -166,6 +205,7 @@ public:
 		return _Permissions;
 	}
 	__declspec(property(get = GetPermissions, put = SetPermissions))short Permissions;
+
 
 	// other class methods
 
@@ -231,23 +271,30 @@ public:
 		return _LoadUsersFromFile();
 	}
 
-	bool Delete()
+	static vector<vector<string>> LoadRegistersFromFile()
 	{
-		vector<clsBankUser> vUsers = _LoadUsersFromFile();
+		vector<vector<string>> output;
 
-		for (clsBankUser& u : vUsers)
+		string Register;
+
+		fstream fUsers;
+		fUsers.open(RegisterFileName, ios::in);
+
+		if (fUsers.is_open())
 		{
-			if (u.Username == _Username)
+			while (getline(fUsers, Register))
 			{
-				u.MarkToDelete = true;
-				*this = GetEmptyUser();
-				break;
+				output.push_back(_ConvertRecordIntoRegisterInfo(Register));
 			}
+			fUsers.close();
 		}
 
-		_SaveUsersDataToFile(vUsers);
+		return output;
+	}
 
-		return (_Mode == enMode::EmptyMode);
+	void LoginRegister()
+	{
+		_SaveRegisterRecordToFile(_MakeLoginRegisterRecord());
 	}
 	
 	enum enSaveResults { svFaildEmptyObject = 0, svFaildUserExists = 1, svSucceedAddNewUser = 2, svSucceedUpdateUser = 3 };
@@ -265,6 +312,25 @@ public:
 		}
 		
 		return false;
+	}
+
+	bool Delete()
+	{
+		vector<clsBankUser> vUsers = _LoadUsersFromFile();
+
+		for (clsBankUser& u : vUsers)
+		{
+			if (u.Username == _Username)
+			{
+				u.MarkToDelete = true;
+				*this = GetEmptyUser();
+				break;
+			}
+		}
+
+		_SaveUsersDataToFile(vUsers);
+
+		return (_Mode == enMode::EmptyMode);
 	}
 
 	enSaveResults Save()

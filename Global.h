@@ -3,9 +3,12 @@
 #include <iostream>
 #include "clsBankUser.h"
 #include "clsDate.h"
+#include "clsTime.h"
 
 using namespace std;
 
-clsBankUser CurrentUser = clsBankUser::GetEmptyUser();
+clsBankUser CurrentUser = CurrentUser;
 
-clsDate LoginDate = clsDate::GetSystemDate();
+clsDate LoginDate;
+
+clsTime LoginTime;

@@ -16,6 +16,7 @@
 #include "clsTransactionsMenu.h"
 #include "clsUsersMenuScreen.h"
 #include "Global.h"
+#include "clsLoginRegistersScreen.h"
 
 using namespace std;
 
@@ -31,7 +32,8 @@ private:
 		eFindClient = 4,
 		eTransactionsMenu = 5,
 		eShowBalanceSheet = 6,
-		eLogOut = 7
+		eShowLoginRegistersList = 7,
+		eLogOut = 8
 	};
 
 	static void _DisplayListClientsScreen()
@@ -76,6 +78,12 @@ private:
 	static void _DisplayUsersMenuScreen()
 	{
 		clsUsersMenuScreen::ShowUsersMenuScreen();
+	}
+
+	static void _DisplayLoginRegistersScreen()
+	{
+		clsLoginRegistersScreen::ShowLoginRegistersList();
+		_GoBackToMainMenu();
 	}
 
 	static void _DisplaylogOutScreen()
@@ -124,9 +132,11 @@ private:
 			_DisplayUsersMenuScreen();
 			_GoBackToMainMenu();
 			break;
+		case clsMainMenu::eShowLoginRegistersList:
+			_DisplayLoginRegistersScreen();
+			break;
 		case clsMainMenu::eLogOut:
 			_DisplaylogOutScreen();
-
 			break;
 		default:
 			break;
@@ -158,75 +168,11 @@ public:
 			"5- Find Client",
 			"6- Transactions Menu",
 			"7- Manage Users Menu",
-			"8- Log Out"
+			"8- Login Registers",
+			"9- Logout"
 		};
 		_PrintHeader();
 		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,10));
 	}
 
 };
-
-	static short _PerformMenuOptions(vector<string> options , short StartLine = 0)
-{
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    short selected = 0;
-    short pos = StartLine;
-    COORD coord = { 40 , pos };
-    while (true)
-    {
-        // make sure any pending output is written before moving the cursor
-        cout.flush();
-
-        // clear screen region start and reprint options from the correct place
-        SetConsoleCursorPosition(hConsole, { 40,0 });
-        pos = StartLine;
-
-        // higlight selected option
-        for (int i = 0; i < options.size(); i++)
-        {
-            if (i == selected)
-            {
-                coord = { 44, pos};
-                SetConsoleCursorPosition(hConsole, coord);
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                cout << options[i] << "\n";
-            }
-            else
-            {
-                coord = { 44, pos };
-                SetConsoleCursorPosition(hConsole, coord);
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                cout << options[i] << "\n";
-            }
-            pos++;
-        }
-
-        // print separator using Win32 attributes (avoid emitting ANSI codes here)
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); // yellow-ish
-        cout << setw(40) << string(40, '-') << endl;
-
-        // reset to default color so future output is consistent
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-        // handle input
-        char ch = _getch();
-        if (ch == 0 || ch == -32) //arrow keys
-        {
-            switch (ch = _getch())
-            {
-            case 72: // up arrow
-                if (selected == 0) selected = options.size() - 1;
-                else selected--;
-                break;
-            case 80: // down arrow
-                if (selected == options.size() - 1) selected = 0;
-                else selected++;
-                break;
-            }
-        }
-        else if (ch == 13) // enter key 
-        {
-            return selected;
-        }
-    }
-}

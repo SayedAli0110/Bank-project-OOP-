@@ -46,6 +46,11 @@ public:
 			{
 				cout << "\n\nWelcome Back " << CurrentUser.FullName() << ".....";
 				_getch();
+
+				trials = 3;
+				subtitle = "";
+
+				CurrentUser.LoginRegister();
 				clsMainMenu::ShowMainMenu();
 			}
 			else
