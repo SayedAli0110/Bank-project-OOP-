@@ -17,6 +17,7 @@
 #include "clsUsersMenuScreen.h"
 #include "Global.h"
 #include "clsLoginRegistersScreen.h"
+#include "clsTransferRegisterScreen.h"
 
 using namespace std;
 
@@ -33,7 +34,8 @@ private:
 		eTransactionsMenu = 5,
 		eShowBalanceSheet = 6,
 		eShowLoginRegistersList = 7,
-		eLogOut = 8
+		eShowTransferRegistersList = 8,
+		eLogOut = 9
 	};
 
 	static void _DisplayListClientsScreen()
@@ -86,6 +88,12 @@ private:
 		_GoBackToMainMenu();
 	}
 
+	static void _DisplayTransferRegistersScreen()
+	{
+		clsTransferRegisterScreen::ShowTransferRegistersList();
+		_GoBackToMainMenu();
+	}
+
 	static void _DisplaylogOutScreen()
 	{
 		CurrentUser = clsBankUser::GetEmptyUser();
@@ -135,6 +143,9 @@ private:
 		case clsMainMenu::eShowLoginRegistersList:
 			_DisplayLoginRegistersScreen();
 			break;
+		case clsMainMenu::eShowTransferRegistersList:
+			_DisplayTransferRegistersScreen();
+			break;
 		case clsMainMenu::eLogOut:
 			_DisplaylogOutScreen();
 			break;
@@ -157,19 +168,19 @@ public:
 	static void ShowMainMenu()
 	{
 		system("cls");
-		cout << clsUtil::RemoveCursor;
 
 		_ShowMenuHeader("MAIN MENU SCREEN");
 		vector<string> MainMenuOptions = {
-			"1- List Clients",
-			"2- Add New Client",
-			"3- Delete Client",
-			"4- Update Client",
-			"5- Find Client",
-			"6- Transactions Menu",
-			"7- Manage Users Menu",
-			"8- Login Registers",
-			"9- Logout"
+			"1  - List Clients",
+			"2  - Add New Client",
+			"3  - Delete Client",
+			"4  - Update Client",
+			"5  - Find Client",
+			"6  - Transactions Menu",
+			"7  - Manage Users Menu",
+			"8  - Login Registers",
+			"9  - Transfer Registers",
+			"10 - Logout"
 		};
 		_PrintHeader();
 		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,10));

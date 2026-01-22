@@ -141,10 +141,11 @@
     <ClInclude Include="clsMenu.h" />
     <ClInclude Include="clsPeriod.h" />
     <ClInclude Include="clsPerson.h" />
-    <ClInclude Include="clsRegisterInfo.h" />
     <ClInclude Include="clsString.h" />
     <ClInclude Include="clsTime.h" />
     <ClInclude Include="clsTransactionsMenu.h" />
+    <ClInclude Include="clsTransferRegisterScreen.h" />
+    <ClInclude Include="clsTransferScreen.h" />
     <ClInclude Include="clsUpdateClientScreen.h" />
     <ClInclude Include="clsUpdateUserScreen.h" />
     <ClInclude Include="clsUserListScreen.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <Text Include="Clients.txt" />
     <Text Include="LoginRegister.txt" />
+    <Text Include="Transfer.txt" />
     <Text Include="Users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -249,6 +249,11 @@ public:
 		return (!_IsEmpty(client));
 	}
 
+	bool IsEmpty()
+	{
+		return (_Mode == enMode::EmptyMode);
+	}
+
 	static clsBankClient GetAddNewClient(string AccountNumber)
 	{
 		return clsBankClient("", "", "", "", AccountNumber, "", 0, enMode::ADDMode);

@@ -10,7 +10,7 @@ using namespace std;
 
 class clsUpdateClientScreen : protected clsMenu
 {
-protected:
+private:
 	static void _ReadClient(clsBankClient& client)
 	{
 		cout  << "FIRST NAME: ";

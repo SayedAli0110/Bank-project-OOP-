@@ -115,9 +115,12 @@
       <Filter>Header Files\Libraries</Filter>
     </ClInclude>
     <ClInclude Include="clsLoginRegistersScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Screens\Users</Filter>
     </ClInclude>
-    <ClInclude Include="clsRegisterInfo.h">
+    <ClInclude Include="clsTransferScreen.h">
+      <Filter>Header Files\Screens\Clients</Filter>
+    </ClInclude>
+    <ClInclude Include="clsTransferRegisterScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,6 +137,9 @@
       <Filter>Header Files\Data</Filter>
     </Text>
     <Text Include="LoginRegister.txt">
+      <Filter>Header Files\Data</Filter>
+    </Text>
+    <Text Include="Transfer.txt">
       <Filter>Header Files\Data</Filter>
     </Text>
   </ItemGroup>

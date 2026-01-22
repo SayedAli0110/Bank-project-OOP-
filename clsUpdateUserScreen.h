@@ -11,6 +11,86 @@ using namespace std;
 class clsUpdateUserScreen : protected clsMenu
 {
 private:
+
+	static void _ReadPermissions(clsBankUser& User)
+	{
+		char answer = 'n';
+
+		cout << "\nDo you want to give full access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions = clsBankUser::enPermissions::eAdmin;
+			return;
+		}
+
+		cout << "\nDo you want to give show clients list access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eShowClenttsList;
+		}
+
+		cout << "\nDo you want to give add new client access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eAddNewClient;
+		}
+
+		cout << "\nDo you want to give delete client access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eDeleteClient;
+		}
+
+		cout << "\nDo you want to give update client access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eUpdateClient;
+		}
+
+		cout << "\nDo you want to give find client access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eFindClient;
+		}
+
+		cout << "\nDo you want to give show transactions menu access(y/n): ";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eTransactions;
+		}
+
+		cout << "\nDo you want to give access to manage users(y/n)";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eManageUsers;
+		}
+
+		cout << "\nDo you want to give access to show login registers(y/n)";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eShowLoginRegisters;
+		}
+
+	}
+
 	static string _GetUserNameToUpdate()
 	{
 		cout << "ENTER USERNAME: ";
@@ -43,6 +123,10 @@ private:
 		User.Phone = clsInputValidation::ReadString();
 		cout << "ENTER PASSWORD: ";
 		User.Password = clsInputValidation::ReadString();
+		cout << "ENTER PERMISSIONS: " << endl;
+
+		_ReadPermissions(User);
+
 		return User;
 	}
 

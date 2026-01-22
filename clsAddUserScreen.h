@@ -80,6 +80,14 @@ private:
 			User.Permissions += clsBankUser::enPermissions::eManageUsers;
 		}
 
+		cout << "\nDo you want to give access to show login registers(y/n)";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eShowLoginRegisters;
+		}
+
 	}
 	static void _ReadUser(clsBankUser& User)
 	{

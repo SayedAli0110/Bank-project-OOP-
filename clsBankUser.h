@@ -8,11 +8,15 @@
 #include "clsInputValidation.h"
 #include "clsDate.h"
 #include "clsTime.h"
+#include "clsBankClient.h"
+#include "clsString.h"
+
 
 using namespace std;
 
 const string FileName = "Users.txt";
 const string RegisterFileName = "LoginRegister.txt";
+const string TransferFileName = "Transfer.txt";
 
 
 class clsBankUser : public clsPerson
@@ -119,15 +123,6 @@ private:
 		return Record;
 	}
 
-	static vector<string> _ConvertRecordIntoRegisterInfo(string Record)
-	{
-		clsString Value(Record);
-
-		vector<string> vOutPut = Value.Split("#//#");
-
-		return vOutPut;
-	}
-
 	static void _SaveRegisterRecordToFile(string RegisterRecord)
 	{
 		fstream Registers;
@@ -141,6 +136,34 @@ private:
 		Registers.close();
 	}
 
+	string _MakeTransferRecord(clsBankClient From, clsBankClient To,float Amount)
+	{
+		string Record = "";
+
+		Record += clsDate().DateToString() + "#//#";
+		Record += clsTime().TimeToString() + "#//#";
+		Record += From.AccountNumber() + "#//#";
+		Record += To.AccountNumber() + "#//#";
+		Record += to_string(Amount) + "#//#";
+		Record += to_string(From.Balance) + "#//#";
+		Record += to_string(To.Balance) + "#//#";
+		Record += _Username;
+
+		return Record;
+	}
+
+	static void _SaveTransferRecordToFile(string RegisterRecord)
+	{
+		fstream Transfers;
+		Transfers.open(TransferFileName, ios::app | ios::out);
+
+		if (Transfers.is_open())
+		{
+			Transfers << RegisterRecord << endl;
+		}
+
+		Transfers.close();
+	}
 
 	void _update()
 	{
@@ -209,6 +232,64 @@ public:
 
 	// other class methods
 
+	struct RegisterInfo
+	{
+		string Date;
+		string Time;
+		string Username;
+		string Password;
+		short Permissions = 0;;
+	};
+
+	struct TransferInfo
+	{
+		string Date;
+		string Time;
+		string FromUsername;
+		string ToUsername;
+		float Amount = 0;
+		float FromBalance = 0;
+		float ToBalance = 0;
+		string Username = "";
+	};
+
+	static RegisterInfo _ConvertRecordIntoRegisterInfo(string Record)
+	{
+		clsString Value(Record);
+
+		vector<string> OutPut = Value.Split("#//#");
+
+		RegisterInfo vOutPut;
+
+		vOutPut.Date = OutPut[0];
+		vOutPut.Time = OutPut[1];
+		vOutPut.Username = OutPut[2];
+		vOutPut.Password = OutPut[3];
+		vOutPut.Permissions = stoi(OutPut[4]);
+
+		return vOutPut;
+	}
+
+	static TransferInfo _ConvertRecordIntoTransferInfo(string Record)
+	{
+		clsString Value(Record);
+
+		vector<string> OutPut = Value.Split("#//#");
+
+		TransferInfo vOutPut;
+
+		vOutPut.Date = OutPut[0];
+		vOutPut.Time = OutPut[1];
+		vOutPut.FromUsername = OutPut[2];
+		vOutPut.ToUsername = OutPut[3];
+		vOutPut.Amount = stof(OutPut[4]);
+		vOutPut.FromBalance = stof(OutPut[5]);
+		vOutPut.ToBalance = stof(OutPut[6]);
+		vOutPut.Username = OutPut[7];
+
+		return vOutPut;
+	}
+
 	enum enPermissions {
 		eAdmin = -1,
 		enonPermissions = 0,
@@ -218,7 +299,9 @@ public:
 		eUpdateClient = 8,
 		eFindClient = 16,
 		eTransactions = 32,
-		eManageUsers = 64
+		eManageUsers = 64,
+		eShowLoginRegisters = 128,
+		eShowTransferRegisters = 256
 		
 	};
 
@@ -271,10 +354,10 @@ public:
 		return _LoadUsersFromFile();
 	}
 
-	static vector<vector<string>> LoadRegistersFromFile()
+	static vector<RegisterInfo> LoadRegistersFromFile()
 	{
-		vector<vector<string>> output;
-
+		vector<RegisterInfo> output;
+	
 		string Register;
 
 		fstream fUsers;
@@ -292,9 +375,35 @@ public:
 		return output;
 	}
 
+	static vector<TransferInfo> LoadTransferFromFile()
+	{
+		vector<TransferInfo> output;
+
+		string Transfer;
+
+		fstream fUsers;
+		fUsers.open(TransferFileName, ios::in);
+
+		if (fUsers.is_open())
+		{
+			while (getline(fUsers, Transfer))
+			{
+				output.push_back(_ConvertRecordIntoTransferInfo(Transfer));
+			}
+			fUsers.close();
+		}
+
+		return output;
+	}
+
 	void LoginRegister()
 	{
 		_SaveRegisterRecordToFile(_MakeLoginRegisterRecord());
+	}
+
+	void TransferRegister(clsBankClient From, clsBankClient To, float Amount)
+	{
+		_SaveTransferRecordToFile(_MakeTransferRecord(From, To, Amount));
 	}
 	
 	enum enSaveResults { svFaildEmptyObject = 0, svFaildUserExists = 1, svSucceedAddNewUser = 2, svSucceedUpdateUser = 3 };
@@ -357,6 +466,8 @@ public:
 			_update();
 			return enSaveResults::svSucceedUpdateUser;
 		}
+
+		return enSaveResults::svFaildEmptyObject;
 	}
 
 

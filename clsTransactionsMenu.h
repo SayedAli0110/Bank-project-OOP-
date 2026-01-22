@@ -9,6 +9,8 @@
 #include "clsUtil.h"
 #include "clsDepositeScreen.h"
 #include "clsWithdrawScreen.h"
+#include "clsTransferScreen.h"
+#include "clsTransferScreen.h"
 
 using namespace std;
 
@@ -20,7 +22,8 @@ private:
 		eDeposit = 0,
 		eWithdraw = 1,
 		eTotalBalances = 2,
-		eExit = 3
+		eTransfer = 3,
+		eExit = 4
 	};
 
 	static void _DisplayDepositScreen()
@@ -33,6 +36,11 @@ private:
 	{
 		system("cls");
 		clsWithdrawScreen::ShowWithdrawScreen();
+	}
+
+	static void _DisplayTransferScreen()
+	{
+		clsTransferScreen::ShowTransferScreen();
 	}
 
 	static void _DisplayTotalBalancesScreen()
@@ -76,6 +84,11 @@ private:
 		_getch();
 	}
 
+	static void _DisplayTrnsferScreen()
+	{
+		clsTransferScreen::ShowTransferScreen();
+	}
+
 	static void _PerformTransactionsMenu(enTransactionsOptions options)
 	{
 		switch (options)
@@ -90,6 +103,10 @@ private:
 			break;
 		case clsTransactionsMenu::eTotalBalances:
 			_DisplayTotalBalancesScreen();
+			ShowTransactionsMenu();
+			break;
+		case clsTransactionsMenu::eTransfer:
+			_DisplayTransferScreen();
 			ShowTransactionsMenu();
 			break;
 		case clsTransactionsMenu::eExit:
@@ -124,7 +141,8 @@ public:
 			"1- Deposit",
 			"2- Withdraw",
 			"3- Total Balances",
-			"4- Exit"
+			"4- Transfer",
+			"5- Exit"
 		};
 
 		// Use same option selection method / start line as main menu
