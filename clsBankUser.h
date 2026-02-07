@@ -174,6 +174,11 @@ private:
 			if (c.Username == _Username)
 			{
 				c = *this;
+
+				string encPassword = c.Password;
+				clsUtil::encrypt(encPassword, 5);
+				c.Password = encPassword;
+
 				break;
 			}
 		}
@@ -302,7 +307,6 @@ public:
 		eManageUsers = 64,
 		eShowLoginRegisters = 128,
 		eShowTransferRegisters = 256
-		
 	};
 
 	static clsBankUser FindUser(string Username)
@@ -312,6 +316,10 @@ public:
 		{
 			if (user.Username == Username)
 			{
+				string decryptedPassword = user.Password;
+				clsUtil::decrypt(decryptedPassword, 5);
+				user.Password = decryptedPassword;
+
 				return user;
 			}
 		}
@@ -326,6 +334,10 @@ public:
 		{
 			if (user.Username == Username && user.Password == Password)
 			{
+				string decryptedPassword = user.Password;
+				clsUtil::decrypt(decryptedPassword, 5);
+				user.Password = decryptedPassword;
+
 				return user;
 			}
 		}

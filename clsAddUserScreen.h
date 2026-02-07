@@ -88,6 +88,14 @@ private:
 			User.Permissions += clsBankUser::enPermissions::eShowLoginRegisters;
 		}
 
+		cout << "\nDo you want to give access to show Transfer registers(y/n)";
+		cin >> answer;
+
+		if (tolower(answer) == 'y')
+		{
+			User.Permissions += clsBankUser::enPermissions::eShowTransferRegisters;
+		}
+
 	}
 	static void _ReadUser(clsBankUser& User)
 	{
@@ -101,6 +109,11 @@ private:
 		User.Phone = clsInputValidation::ReadString();
 		cout << "PASSWORD    : ";
 		User.Password = clsInputValidation::ReadString();
+
+		string TempPassword = User.Password;
+		clsUtil::encrypt(TempPassword, 5);
+		User.Password = TempPassword;
+
 		cout << "PERMISSIONS : " << endl;
 		_ReadPermissions(User);
 	}
@@ -135,7 +148,8 @@ public:
 
 		while (clsBankUser::IsExistUser(Username))
 		{
-			cout << clsUtil::RED << "User with this username already exists." << clsUtil::RESET << endl;
+			system("cls");
+			clsMenu::_ShowMenuHeader("ADD USER SCREEN", "User with this username already exists.");
 			cout << "\nEnter Username : ";
 			Username = clsInputValidation::ReadString();
 		}

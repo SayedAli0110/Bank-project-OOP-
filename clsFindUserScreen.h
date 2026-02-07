@@ -40,7 +40,8 @@ public:
 
 		while (!clsBankUser::IsExistUser(UserName))
 		{
-			cout << clsUtil::RED <<  "\nUSER NOT FOUND, PLEASE TRY AGAIN.\n" << clsUtil::RESET;
+			system("cls");
+			_ShowMenuHeader("FIND USER SCREEN", "User with this username does not exist.");
 			UserName = _GetUserNameToSearch();
 		}
 

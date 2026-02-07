@@ -36,12 +36,45 @@ public:
 
 		while (!clsBankUser::IsExistUser(UserName))
 		{
-			cout << clsUtil::RED << "User with this username does not exist." << clsUtil::RESET << endl;
+			system("cls");
+			_ShowMenuHeader("DELETE USER SCREEN", "User with this username does not exist.");
 			cout << "\nEnter Username : ";
 			UserName = clsInputValidation::ReadString();
 		}
 
 		clsBankUser User = clsBankUser::FindUser(UserName);
+
+		while (User.Permissions == clsBankUser::enPermissions::eAdmin)
+		{
+			system("cls");
+			_ShowMenuHeader("DELETE USER SCREEN", "You cannot delete an admin user.");
+			cout << "\nEnter Username : ";
+			UserName = clsInputValidation::ReadString();
+			while (!clsBankUser::IsExistUser(UserName))
+			{
+				system("cls");
+				_ShowMenuHeader("DELETE USER SCREEN", "User with this username does not exist.");
+				cout << "\nEnter Username : ";
+				UserName = clsInputValidation::ReadString();
+			}
+			User = clsBankUser::FindUser(UserName);
+		}
+
+		while (User.Username == CurrentUser.Username)
+		{
+			system("cls");
+			_ShowMenuHeader("DELETE USER SCREEN", "You cannot delete your own user.");
+			cout << "\nEnter Username : ";
+			UserName = clsInputValidation::ReadString();
+			while (!clsBankUser::IsExistUser(UserName))
+			{
+				system("cls");
+				_ShowMenuHeader("DELETE USER SCREEN", "User with this username does not exist.");
+				cout << "\nEnter Username : ";
+				UserName = clsInputValidation::ReadString();
+			}
+			User = clsBankUser::FindUser(UserName);
+		}
 
 		cout << endl;
 		_PrintUser(User);

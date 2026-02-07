@@ -13,6 +13,10 @@ class clsClientListMenu : protected clsMenu
 private:
 	static void _PrintClientRecordLine(clsBankClient client)
 	{
+		string encPin = client.PinCode;
+		clsUtil::decrypt(encPin, 5);
+		client.PinCode = encPin;
+
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(25) << left << client.AccountNumber();
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(20) << left << client.FullName();
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(12) << left << client.Phone;

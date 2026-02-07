@@ -12,11 +12,16 @@ class clsUserListScreen : protected clsMenu
 private:
 	static void _PrintUserRecordLine(clsBankUser user)
 	{
+		string decPassword = user.Password;
+		clsUtil::decrypt(decPassword, 5);
+		user.Password = decPassword;
+
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(20) << left << user.Username;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << user.FirstName;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << user.LastName;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(25) << left << user.Email;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << user.Phone;
+		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << user.Password;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(12) << left << to_string(user.Permissions);
 		cout << endl;
 	}
@@ -29,17 +34,18 @@ public:
 		_ShowMenuHeader("USERS LIST SCREEN", subTitle);
 
 		cout << clsUtil::YELLOW <<
-			"------------------------------------------------------------------------------------------------------------------"
+			"------------------------------------------------------------------------------------------------------------------------------"
 			<< clsUtil::RESET << endl;
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(20) << left << "USERNAME";
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << "FIRST NAME";
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << "LAST NAME";
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(25) << left << "EMAIL";
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << "PHONE";
+		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(15) << left << "PASSWORD";
 		cout << clsUtil::RED << "| " << clsUtil::RESET << setw(12) << left << "PERMISSIONS";
 		cout << endl;
 		cout << clsUtil::YELLOW <<
-			"------------------------------------------------------------------------------------------------------------------"
+			"------------------------------------------------------------------------------------------------------------------------------"
 			<< clsUtil::RESET << endl;
 
 		if (vUsers.size() == 0)
@@ -55,7 +61,7 @@ public:
 		}
 
 		cout << clsUtil::YELLOW <<
-			"------------------------------------------------------------------------------------------------------------------"
+			"------------------------------------------------------------------------------------------------------------------------------"
 			<< clsUtil::RESET << endl;
 	}
 };

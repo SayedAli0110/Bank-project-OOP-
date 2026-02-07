@@ -40,7 +40,10 @@ public:
 			cout << "Enter Password : ";
 			string Password = clsInputValidation::ReadString();
 
+			clsUtil::encrypt(Password, 5);
+
 			CurrentUser = clsBankUser::FindUser(Username, Password);
+
 
 			if (clsBankUser::IsExistUser(CurrentUser.Username))
 			{

@@ -45,7 +45,8 @@ public:
 
 		while (!clsBankClient::IsExistClient(AccountNumber))
 		{
-			cout << endl << clsUtil::RED << "Client with this account number is not exist." << endl;
+			system("cls");
+			_ShowMenuHeader("DELETE CLIENT SCREEN", "Client not found");
 			cout << clsUtil::RESET;
 			cout << "Enter another one : ";
 			AccountNumber = clsInputValidation::ReadString();

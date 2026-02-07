@@ -134,6 +134,12 @@ private:
 			if (c.AccountNumber() == AccountNumber())
 			{
 				c = *this;
+
+				string encPin = c.PinCode;
+				clsUtil::encrypt(encPin, 5);
+				c.PinCode = encPin;
+
+				break;
 			}
 		}
 
@@ -142,6 +148,10 @@ private:
 
 	void _AddNew()
 	{
+		string encPin = _PinCode;
+		clsUtil::encrypt(encPin, 5);
+		_PinCode = encPin;
+
 		_AddClientToFile(_ConvertClientObjecIntoLine(*this));
 	}
 
@@ -213,6 +223,11 @@ public:
 				if (client.AccountNumber() == AccNumber)
 				{
 					fClients.close();
+
+					string encPin = client.PinCode;
+					clsUtil::decrypt(encPin, 5);
+					client.PinCode = encPin;
+
 					return client;
 				}
 			}

@@ -50,7 +50,8 @@ private:
 
 		while (clsBankClient::IsExistClient(AccountNumber))
 		{
-			cout << clsUtil::RED << "Client with this account number already exists." << clsUtil::RESET<< endl;
+			system("cls");
+			_ShowMenuHeader("ADD NEW CLIENT SCREEN", "Client already Exists");
 			cout <<  "\nEnter Account number : ";
 			AccountNumber = clsInputValidation::ReadString();
 		}
