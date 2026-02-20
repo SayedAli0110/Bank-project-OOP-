@@ -6,6 +6,7 @@
 #include <string>
 #include <Windows.h>
 #include <iomanip>
+
 #include "clsMenu.h"
 #include "clsUtil.h"
 #include "clsClientListMenu.h"
@@ -18,6 +19,8 @@
 #include "Global.h"
 #include "clsLoginRegistersScreen.h"
 #include "clsTransferRegisterScreen.h"
+#include "clsCurrencyExchangeMainMenu.h"
+
 
 using namespace std;
 
@@ -35,7 +38,8 @@ private:
 		eShowBalanceSheet = 6,
 		eShowLoginRegistersList = 7,
 		eShowTransferRegistersList = 8,
-		eLogOut = 9
+		eCurrencyExchange = 9,
+		eLogOut = 10
 	};
 
 	static void _DisplayListClientsScreen()
@@ -94,6 +98,12 @@ private:
 		_GoBackToMainMenu();
 	}
 
+	static void _DisplayCurrencyExchangeScreen()
+	{
+		clsCurrencyExchangeMainMenu::ShowCurrencyExchangeMainMenu();
+		_GoBackToMainMenu();
+	}
+
 	static void _DisplaylogOutScreen()
 	{
 		CurrentUser = clsBankUser::GetEmptyUser();
@@ -149,6 +159,9 @@ private:
 		case clsMainMenu::eLogOut:
 			_DisplaylogOutScreen();
 			break;
+		case clsMainMenu::eCurrencyExchange:
+			_DisplayCurrencyExchangeScreen();
+			break;
 		default:
 			break;
 		}
@@ -180,7 +193,8 @@ public:
 			"7  - Manage Users Menu",
 			"8  - Login Registers",
 			"9  - Transfer Registers",
-			"10 - Logout"
+			"10 - Currency Exchange",
+			"11 - Logout"
 		};
 		_PrintHeader();
 		_PerformMainMenu((enMainMenuOptions)_PerformMenuOptions(MainMenuOptions,10));

@@ -41,7 +41,8 @@ public:
 		// validating client existence
 		while (!clsBankClient::IsExistClient(AccNumber))
 		{
-			cout << clsUtil:: RED << "Client not found " << clsUtil:: RESET<< endl;
+			system("cls");
+			_ShowMenuHeader("FIND CLIENT MENU", "Client not found");
 			cout << "Enter Account Number : ";
 			AccNumber = clsInputValidation::ReadString();
 		}

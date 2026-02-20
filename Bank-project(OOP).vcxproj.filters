@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Screens\Users">
       <UniqueIdentifier>{85f19ead-55df-4c71-b3e9-b1cc2621e8cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Screens\Currencies">
+      <UniqueIdentifier>{6f273c5b-15d2-4000-9bb9-fab10e395c87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsBankClient.h">
@@ -108,9 +111,6 @@
     <ClInclude Include="clsMainMenu.h">
       <Filter>Header Files\Screens\Clients</Filter>
     </ClInclude>
-    <ClInclude Include="clsMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
     <ClInclude Include="clsTime.h">
       <Filter>Header Files\Libraries</Filter>
     </ClInclude>
@@ -121,7 +121,25 @@
       <Filter>Header Files\Screens\Clients</Filter>
     </ClInclude>
     <ClInclude Include="clsTransferRegisterScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Screens\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="clsMenu.h">
+      <Filter>Header Files\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="clsCurrencyCalculator.h">
+      <Filter>Header Files\Screens\Currencies</Filter>
+    </ClInclude>
+    <ClInclude Include="clsCurrencyExchangeMainMenu.h">
+      <Filter>Header Files\Screens\Currencies</Filter>
+    </ClInclude>
+    <ClInclude Include="clsFindCurrencyMenu.h">
+      <Filter>Header Files\Screens\Currencies</Filter>
+    </ClInclude>
+    <ClInclude Include="clsListCurrenciesMenu.h">
+      <Filter>Header Files\Screens\Currencies</Filter>
+    </ClInclude>
+    <ClInclude Include="clsCurrency.h">
+      <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +158,9 @@
       <Filter>Header Files\Data</Filter>
     </Text>
     <Text Include="Transfer.txt">
+      <Filter>Header Files\Data</Filter>
+    </Text>
+    <Text Include="Currencies.txt">
       <Filter>Header Files\Data</Filter>
     </Text>
   </ItemGroup>
